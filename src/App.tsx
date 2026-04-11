@@ -263,12 +263,13 @@ export default function App() {
           </div>
 
           <div className="flex flex-col items-center mt-2 mb-10">
-            <motion.button 
+            <motion.a 
+              href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group"
+              className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer"
             >
               <div className="flex flex-col items-center text-center">
                 <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES! Add the Neurodyne Accelerator</span>
@@ -276,7 +277,11 @@ export default function App() {
               <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
                 <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
-            </motion.button>
+            </motion.a>
+
+            <a href="https://www.neurodyneprotocol.com/thank-you" className="mt-8 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
+              No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
+            </a>
           </div>
 
           <p className="font-bold text-gray-900">One payment. Not a subscription. You get instant access right now, alongside your Neurodyne Protocol.</p>
@@ -304,12 +309,13 @@ export default function App() {
 
         {/* CTA 1 */}
         <div className="flex flex-col items-center mt-12 mb-16">
-          <motion.button 
+          <motion.a 
+            href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group"
+            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
               <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES! Add the Neurodyne Accelerator</span>
@@ -317,7 +323,7 @@ export default function App() {
             <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
               <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
-          </motion.button>
+          </motion.a>
           
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 mt-6 text-sm md:text-base text-gray-500 font-medium">
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ Instant access</span>
@@ -327,7 +333,7 @@ export default function App() {
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ 60-day money-back guarantee</span>
           </div>
 
-          <a href="#" className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
+          <a href="https://www.neurodyneprotocol.com/thank-you" className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
             No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
           </a>
         </div>
@@ -357,12 +363,13 @@ export default function App() {
 
         {/* CTA 2 */}
         <div className="flex flex-col items-center mt-14 mb-24">
-          <motion.button 
+          <motion.a 
+            href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group"
+            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer"
           >
             <div className="flex flex-col items-center text-center">
               <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES, Add the Accelerator</span>
@@ -370,9 +377,9 @@ export default function App() {
             <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
               <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
-          </motion.button>
+          </motion.a>
 
-          <a href="#" className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors underline decoration-gray-300 underline-offset-4">
+          <a href="https://www.neurodyneprotocol.com/thank-you" className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors underline decoration-gray-300 underline-offset-4">
             No thanks, I'll skip this.
           </a>
         </div>
