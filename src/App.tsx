@@ -264,7 +264,7 @@ export default function App() {
 
           <div className="flex flex-col items-center mt-2 mb-10">
             <motion.a 
-              href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
+              href="https://pay.kashpay.com.br/checkout/checkout-1775860375358"
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
@@ -310,7 +310,7 @@ export default function App() {
         {/* CTA 1 */}
         <div className="flex flex-col items-center mt-12 mb-16">
           <motion.a 
-            href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
+            href="https://pay.kashpay.com.br/checkout/checkout-1775860375358"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
@@ -364,7 +364,7 @@ export default function App() {
         {/* CTA 2 */}
         <div className="flex flex-col items-center mt-14 mb-24">
           <motion.a 
-            href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
+            href="https://pay.kashpay.com.br/checkout/checkout-1775860375358"
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
