@@ -8,10 +8,10 @@ export default function App() {
       {/* Top Success Banner */}
       <div className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 py-5 px-4 shadow-md">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight flex items-center justify-center gap-2 mb-2">
+          <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight flex items-center justify-center gap-2 mb-3">
             ✅ Your Order Was Successful! Your Neurodyne Protocol Is Ready
           </h1>
-          <p className="text-emerald-50 text-base md:text-lg font-medium">
+          <p className="inline-block bg-white/20 text-white px-6 py-2.5 rounded-full text-base md:text-lg font-bold shadow-sm backdrop-blur-sm border border-white/30">
             You now have full access. Check your email for login details.
           </p>
         </div>
