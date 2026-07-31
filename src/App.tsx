@@ -1,6 +1,25 @@
 import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
+const UPSELL_LINK = 'https://pay.neurodyneprotocol.com/u/2a346b9bc04857cd';
+const CHECKOUT_FALLBACK = 'https://checkout.kashpay.com.br/checkout/checkout-1775860375358';
+const THANKYOU_FALLBACK = 'https://www.neurodyneprotocol.com/thank-you';
+
+const handleAcceptUpsell = (e: any) => {
+  e.preventDefault();
+  const fn = (window as any).acceptUpsell;
+  if (typeof fn === 'function') { fn(UPSELL_LINK); return; }
+  window.location.href = CHECKOUT_FALLBACK;
+};
+
+const handleDeclineUpsell = (e: any) => {
+  e.preventDefault();
+  const fn = (window as any).declineUpsell;
+  if (typeof fn === 'function') { fn(UPSELL_LINK); return; }
+  window.location.href = THANKYOU_FALLBACK;
+};
+
+
 export default function App() {
   return (
     <div className="min-h-screen bg-[#fafafa] font-sans selection:bg-emerald-200 selection:text-emerald-900 pb-16 tracking-[0.015em] overflow-x-hidden">
@@ -187,7 +206,7 @@ export default function App() {
         <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-10 md:my-14"></div>
 
         {/* Stakes Section */}
-        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8">
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 -mt-2 md:-mt-4">
           Let's Be Real About What's at Stake
         </h3>
 
@@ -264,7 +283,7 @@ export default function App() {
 
           <div className="flex flex-col items-center mt-2 mb-10">
             <motion.a 
-              href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
+              href="#" onClick={handleAcceptUpsell}
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
@@ -279,7 +298,7 @@ export default function App() {
               </div>
             </motion.a>
 
-            <a href="https://www.neurodyneprotocol.com/thank-you" className="mt-8 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
+            <a href="#" onClick={handleDeclineUpsell} className="mt-8 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
               No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
             </a>
           </div>
@@ -310,7 +329,7 @@ export default function App() {
         {/* CTA 1 */}
         <div className="flex flex-col items-center mt-12 mb-16">
           <motion.a 
-            href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
+            href="#" onClick={handleAcceptUpsell}
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
@@ -333,7 +352,7 @@ export default function App() {
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ 60-day money-back guarantee</span>
           </div>
 
-          <a href="https://www.neurodyneprotocol.com/thank-you" className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
+          <a href="#" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
             No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
           </a>
         </div>
@@ -364,7 +383,7 @@ export default function App() {
         {/* CTA 2 */}
         <div className="flex flex-col items-center mt-14 mb-24">
           <motion.a 
-            href="https://checkout.kashpay.com.br/checkout/checkout-1775860375358"
+            href="#" onClick={handleAcceptUpsell}
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
@@ -379,7 +398,7 @@ export default function App() {
             </div>
           </motion.a>
 
-          <a href="https://www.neurodyneprotocol.com/thank-you" className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors underline decoration-gray-300 underline-offset-4">
+          <a href="#" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors underline decoration-gray-300 underline-offset-4">
             No thanks, I'll skip this.
           </a>
         </div>
@@ -387,7 +406,7 @@ export default function App() {
         {/* Disclaimer */}
         <div className="border-t border-gray-200 pt-10 pb-6 text-center">
           <p className="text-xs md:text-sm text-gray-400 leading-relaxed max-w-4xl mx-auto">
-            © Neurodyne Protocol. All rights reserved. Results may vary based on individual factors including age, health status, and consistency of use. This product is a digital educational guide and does not constitute medical advice. These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Always consult your doctor before starting any new health regimen.
+            © 2026 Neurodyne Protocol. All rights reserved. Results may vary based on individual factors including age, health status, and consistency of use. This product is a digital educational guide and does not constitute medical advice. These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease. Always consult your doctor before starting any new health regimen.
           </p>
         </div>
 
