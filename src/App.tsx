@@ -270,14 +270,14 @@ export default function App() {
         </h3>
 
         <div className="space-y-6 md:space-y-8 text-lg md:text-xl leading-relaxed text-gray-700 text-center">
-          <p>If we sold this separately, it would be $97. And it would be worth every cent, because it could literally double or triple the speed of your results.</p>
-          <p className="font-bold text-gray-900 text-xl md:text-2xl">But you're not paying $97.</p>
+          <p>If we sold this separately, it would be $997. And it would be worth every cent, because it could literally double or triple the speed of your results.</p>
+          <p className="font-bold text-gray-900 text-xl md:text-2xl">But you're not paying $997.</p>
           <p>Because you're seeing this page right now, seconds after your purchase. That tells me you're serious. You're not going to let the protocol sit untouched. You actually want your memory back.</p>
           <p className="font-medium">So today, one time only, on this page only, you can add the Neurodyne Accelerator to your order for just:</p>
           
           <div className="my-10 md:my-12">
             <span className="text-[6rem] md:text-[12rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-500 to-emerald-700 tracking-tighter drop-shadow-md">
-              $47
+              $147
             </span>
           </div>
 
@@ -375,7 +375,7 @@ export default function App() {
           
           <p>Without it, the engine might start… eventually. After a few tries. After a few weeks.</p>
           <p className="font-bold text-gray-900">With it, you turn the key and the engine roars to life.</p>
-          <p className="text-xl md:text-2xl font-bold text-gray-900 mt-10">$47 to make sure the engine starts on the first try.</p>
+          <p className="text-xl md:text-2xl font-bold text-gray-900 mt-10">$147 to make sure the engine starts on the first try.</p>
           <p>You'll know within the first week if it was worth it.</p>
           <p className="font-medium italic mt-6">I think you already know the answer.</p>
         </div>
