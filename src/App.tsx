@@ -1,7 +1,7 @@
 import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
-const UPSELL_LINK = 'https://pay.neurodyneprotocol.com/u/2a346b9bc04857cd';
+const UPSELL_LINK = 'https://app.kashpay.com.br/u/2a346b9bc04857cd';
 const CHECKOUT_FALLBACK = 'https://checkout.kashpay.com.br/checkout/checkout-1775860375358';
 const THANKYOU_FALLBACK = 'https://www.neurodyneprotocol.com/thank-you';
 
