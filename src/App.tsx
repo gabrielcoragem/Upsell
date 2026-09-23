@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 const UPSELL_LINK = 'https://pay.neurodyneprotocol.com/u/2a346b9bc04857cd';
 const CHECKOUT_FALLBACK = 'https://checkout.kashpay.com.br/checkout/checkout-1775860375358';
-const THANKYOU_FALLBACK = 'https://www.neurodyneprotocol.com/thank-you';
+const DECLINE_LINK = 'https://neuroprime-upsell.vercel.app';
 
 const handleAcceptUpsell = (e: any) => {
   e.preventDefault();
@@ -13,10 +13,16 @@ const handleAcceptUpsell = (e: any) => {
 };
 
 const handleDeclineUpsell = (e: any) => {
-  e.preventDefault();
+  const urlParams = new URLSearchParams(window.location.search);
+  const ks = urlParams.get('ks');
   const fn = (window as any).declineUpsell;
-  if (typeof fn === 'function') { fn(UPSELL_LINK); return; }
-  window.location.href = THANKYOU_FALLBACK;
+
+  if (typeof fn === 'function' && ks) {
+    e.preventDefault();
+    fn(UPSELL_LINK);
+    return;
+  }
+  window.location.href = DECLINE_LINK;
 };
 
 
@@ -298,7 +304,7 @@ export default function App() {
               </div>
             </motion.a>
 
-            <a href="#" onClick={handleDeclineUpsell} className="mt-8 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
+            <a href="https://neuroprime-upsell.vercel.app" onClick={handleDeclineUpsell} className="mt-8 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4">
               No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
             </a>
           </div>
@@ -352,7 +358,7 @@ export default function App() {
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ 60-day money-back guarantee</span>
           </div>
 
-          <a href="#" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors max-w-lg text-center underline decoration-gray-300 underline-offset-4">
+          <a href="https://neuroprime-upsell.vercel.app" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4">
             No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
           </a>
         </div>
@@ -398,7 +404,7 @@ export default function App() {
             </div>
           </motion.a>
 
-          <a href="#" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-gray-400 hover:text-gray-600 transition-colors underline decoration-gray-300 underline-offset-4">
+          <a href="https://neuroprime-upsell.vercel.app" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors underline decoration-red-300 hover:decoration-red-500 underline-offset-4">
             No thanks, I'll skip this.
           </a>
         </div>
