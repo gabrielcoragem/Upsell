@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight } from "lucide-react";
+import { Check, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
 const UPSELL_LINK = 'https://checkout.kashpay.com.br/u/33a43ce1589ddcbe';
@@ -288,13 +288,12 @@ export default function App() {
           <p>If we sold this separately, it would be $97. And it would be worth every cent, because it could literally double or triple the speed of your results.</p>
           <p className="font-bold text-gray-900 text-xl md:text-2xl">But you're not paying $97.</p>
           <p>Because you're seeing this page right now, seconds after your purchase. That tells me you're serious. You're not going to let the protocol sit untouched. You actually want your memory back.</p>
-          <p className="font-medium">So today, one time only, on this page only, you can add the Neurodyne Accelerator to your order for just:</p>
+          <p className="font-medium">So today, exclusively on this page, you can add the Neurodyne Accelerator to your order for just:</p>
           
           <div className="my-10 md:my-12">
             <span className="text-[6rem] md:text-[12rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-500 to-emerald-700 tracking-tighter drop-shadow-md">
               $37
             </span>
-            <span className="block text-2xl md:text-3xl font-bold text-emerald-700 mt-2">per month</span>
           </div>
 
           <div className="flex flex-col items-center mt-2 mb-10">
@@ -320,6 +319,12 @@ export default function App() {
               $37/month subscription. Cancel anytime.
             </p>
 
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 mt-6 text-sm md:text-base text-gray-500 font-medium">
+              <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> Instant access</span>
+              <span className="hidden md:inline text-gray-300">•</span>
+              <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> Cancel anytime</span>
+            </div>
+
             <button 
               type="button"
               data-upsell-decline="true"
@@ -331,66 +336,6 @@ export default function App() {
           </div>
 
           <p className="font-bold text-gray-900">You get instant access right now, alongside your Neurodyne Protocol.</p>
-        </div>
-
-        {/* Guarantee */}
-        <div className="flex flex-col items-center text-center bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-3xl p-8 md:p-12 my-12 md:my-16">
-          <ShieldCheck className="w-16 h-16 text-emerald-500 mb-6" />
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            And just like the Neurodyne Protocol, the Accelerator is covered by a full <strong className="text-gray-900">60-day money-back guarantee.</strong>
-          </p>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            Try it. Use the 3 steps before your doses. Follow the timing guide.
-          </p>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-4">
-            If you don't feel a noticeable difference in how fast the protocol kicks in, email us. Full refund. No questions asked. No hassle.
-          </p>
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-semibold mb-6">
-            You keep the guide. We eat the cost.
-          </p>
-          <p className="text-2xl md:text-3xl font-bold text-gray-900">
-            There is zero risk.
-          </p>
-        </div>
-
-        {/* CTA 1 */}
-        <div className="flex flex-col items-center mt-12 mb-16">
-          <motion.button 
-            type="button"
-            data-upsell-accept="true"
-            onClick={handleAcceptUpsell}
-            animate={{ scale: [1, 1.02, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer border-none"
-          >
-            <div className="flex flex-col items-center text-center">
-              <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES! Add the Neurodyne Accelerator</span>
-            </div>
-            <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
-              <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
-            </div>
-          </motion.button>
-
-          <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
-            $37/month subscription. Cancel anytime.
-          </p>
-          
-          <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 mt-6 text-sm md:text-base text-gray-500 font-medium">
-            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ Instant access</span>
-            <span className="hidden md:inline text-gray-300">•</span>
-            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ 60-day money-back guarantee</span>
-          </div>
-
-          <button 
-            type="button"
-            data-upsell-decline="true"
-            onClick={handleDeclineUpsell} 
-            className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4 bg-transparent border-none cursor-pointer p-0"
-          >
-            No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
-          </button>
         </div>
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-10 md:my-14"></div>
@@ -411,7 +356,7 @@ export default function App() {
           
           <p>Without it, the engine might start… eventually. After a few tries. After a few weeks.</p>
           <p className="font-bold text-gray-900">With it, you turn the key and the engine roars to life.</p>
-          <p className="text-xl md:text-2xl font-bold text-gray-900 mt-10">$37 a month to make sure the engine starts on the first try.</p>
+          <p className="text-xl md:text-2xl font-bold text-gray-900 mt-10">$37 to make sure the engine starts on the first try.</p>
           <p>You'll know within the first week if it was worth it.</p>
           <p className="font-medium italic mt-6">I think you already know the answer.</p>
         </div>
