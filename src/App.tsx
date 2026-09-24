@@ -1,24 +1,25 @@
+import React, { useEffect } from "react";
 import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
-const UPSELL_LINK = 'https://pay.neurodyneprotocol.com/u/2a346b9bc04857cd';
+const UPSELL_LINK = 'https://checkout.kashpay.com.br/u/33a43ce1589ddcbe';
 const CHECKOUT_FALLBACK = 'https://checkout.kashpay.com.br/checkout/checkout-1775860375358';
 const DECLINE_LINK = 'https://neuroprime-upsell.vercel.app';
 
-const handleAcceptUpsell = (e: any) => {
-  e.preventDefault();
+const handleAcceptUpsell = (e?: React.MouseEvent) => {
+  if (e) e.preventDefault();
   const fn = (window as any).acceptUpsell;
-  if (typeof fn === 'function') { fn(UPSELL_LINK); return; }
+  if (typeof fn === 'function') {
+    fn(UPSELL_LINK);
+    return;
+  }
   window.location.href = CHECKOUT_FALLBACK;
 };
 
-const handleDeclineUpsell = (e: any) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const ks = urlParams.get('ks');
+const handleDeclineUpsell = (e?: React.MouseEvent) => {
+  if (e) e.preventDefault();
   const fn = (window as any).declineUpsell;
-
-  if (typeof fn === 'function' && ks) {
-    e.preventDefault();
+  if (typeof fn === 'function') {
     fn(UPSELL_LINK);
     return;
   }
@@ -27,6 +28,14 @@ const handleDeclineUpsell = (e: any) => {
 
 
 export default function App() {
+  useEffect(() => {
+    document.querySelectorAll<HTMLElement>('[data-upsell-accept]').forEach((el) => {
+      el.setAttribute('onclick', `acceptUpsell('${UPSELL_LINK}')`);
+    });
+    document.querySelectorAll<HTMLElement>('[data-upsell-decline]').forEach((el) => {
+      el.setAttribute('onclick', `declineUpsell('${UPSELL_LINK}')`);
+    });
+  }, []);
   return (
     <div className="min-h-screen bg-[#fafafa] font-sans selection:bg-emerald-200 selection:text-emerald-900 pb-16 tracking-[0.015em] overflow-x-hidden">
       
@@ -288,13 +297,15 @@ export default function App() {
           </div>
 
           <div className="flex flex-col items-center mt-2 mb-10">
-            <motion.a 
-              href="#" onClick={handleAcceptUpsell}
+            <motion.button 
+              type="button"
+              data-upsell-accept="true"
+              onClick={handleAcceptUpsell}
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
               whileTap={{ scale: 0.98 }}
-              className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer"
+              className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer border-none"
             >
               <div className="flex flex-col items-center text-center">
                 <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES! Add the Neurodyne Accelerator</span>
@@ -302,14 +313,23 @@ export default function App() {
               <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
                 <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
-            </motion.a>
+            </motion.button>
 
-            <a href="https://neuroprime-upsell.vercel.app" onClick={handleDeclineUpsell} className="mt-8 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4">
+            <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
+              $47 initial fee, then $27/month subscription. Cancel anytime.
+            </p>
+
+            <button 
+              type="button"
+              data-upsell-decline="true"
+              onClick={handleDeclineUpsell} 
+              className="mt-8 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4 bg-transparent border-none cursor-pointer p-0"
+            >
               No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
-            </a>
+            </button>
           </div>
 
-          <p className="font-bold text-gray-900">One payment. Not a subscription. You get instant access right now, alongside your Neurodyne Protocol.</p>
+          <p className="font-bold text-gray-900">You get instant access right now, alongside your Neurodyne Protocol.</p>
         </div>
 
         {/* Guarantee */}
@@ -334,13 +354,15 @@ export default function App() {
 
         {/* CTA 1 */}
         <div className="flex flex-col items-center mt-12 mb-16">
-          <motion.a 
-            href="#" onClick={handleAcceptUpsell}
+          <motion.button 
+            type="button"
+            data-upsell-accept="true"
+            onClick={handleAcceptUpsell}
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer"
+            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer border-none"
           >
             <div className="flex flex-col items-center text-center">
               <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES! Add the Neurodyne Accelerator</span>
@@ -348,19 +370,26 @@ export default function App() {
             <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
               <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
-          </motion.a>
+          </motion.button>
+
+          <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
+            $47 initial fee, then $27/month subscription. Cancel anytime.
+          </p>
           
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 mt-6 text-sm md:text-base text-gray-500 font-medium">
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ Instant access</span>
             <span className="hidden md:inline text-gray-300">•</span>
-            <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ One-time payment</span>
-            <span className="hidden md:inline text-gray-300">•</span>
             <span className="flex items-center gap-1.5"><Check className="w-4 h-4 text-emerald-500" /> ✓ 60-day money-back guarantee</span>
           </div>
 
-          <a href="https://neuroprime-upsell.vercel.app" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4">
+          <button 
+            type="button"
+            data-upsell-decline="true"
+            onClick={handleDeclineUpsell} 
+            className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors max-w-lg text-center underline decoration-red-300 hover:decoration-red-500 underline-offset-4 bg-transparent border-none cursor-pointer p-0"
+          >
             No thanks, I'll take the formula without preparing my body and hope my absorption is good enough on its own.
-          </a>
+          </button>
         </div>
 
         <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-10 md:my-14"></div>
@@ -388,13 +417,15 @@ export default function App() {
 
         {/* CTA 2 */}
         <div className="flex flex-col items-center mt-14 mb-24">
-          <motion.a 
-            href="#" onClick={handleAcceptUpsell}
+          <motion.button 
+            type="button"
+            data-upsell-accept="true"
+            onClick={handleAcceptUpsell}
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             whileHover={{ scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(34, 197, 94, 0.5), 0 10px 15px -3px rgba(34, 197, 94, 0.3)" }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer"
+            className="w-full bg-gradient-to-b from-[#22C55E] to-[#16a34a] text-white py-4 md:py-5 px-6 rounded-2xl shadow-[0_0_40px_-10px_rgba(34,197,94,0.6)] flex items-center justify-center gap-4 group cursor-pointer border-none"
           >
             <div className="flex flex-col items-center text-center">
               <span className="text-xl md:text-2xl font-extrabold tracking-wide uppercase drop-shadow-sm">YES, Add the Accelerator</span>
@@ -402,11 +433,20 @@ export default function App() {
             <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/30 transition-colors">
               <ArrowRight className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
-          </motion.a>
+          </motion.button>
 
-          <a href="https://neuroprime-upsell.vercel.app" onClick={handleDeclineUpsell} className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors underline decoration-red-300 hover:decoration-red-500 underline-offset-4">
+          <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
+            $47 initial fee, then $27/month subscription. Cancel anytime.
+          </p>
+
+          <button 
+            type="button"
+            data-upsell-decline="true"
+            onClick={handleDeclineUpsell} 
+            className="mt-10 text-sm md:text-base text-red-500 hover:text-red-700 transition-colors underline decoration-red-300 hover:decoration-red-500 underline-offset-4 bg-transparent border-none cursor-pointer p-0"
+          >
             No thanks, I'll skip this.
-          </a>
+          </button>
         </div>
 
         {/* Disclaimer */}
