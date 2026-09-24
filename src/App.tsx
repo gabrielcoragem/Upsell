@@ -292,8 +292,9 @@ export default function App() {
           
           <div className="my-10 md:my-12">
             <span className="text-[6rem] md:text-[12rem] leading-none font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-emerald-500 to-emerald-700 tracking-tighter drop-shadow-md">
-              $47
+              $37
             </span>
+            <span className="block text-2xl md:text-3xl font-bold text-emerald-700 mt-2">per month</span>
           </div>
 
           <div className="flex flex-col items-center mt-2 mb-10">
@@ -316,7 +317,7 @@ export default function App() {
             </motion.button>
 
             <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
-              $47 initial fee, then $27/month subscription. Cancel anytime.
+              $37/month subscription. Cancel anytime.
             </p>
 
             <button 
@@ -373,7 +374,7 @@ export default function App() {
           </motion.button>
 
           <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
-            $47 initial fee, then $27/month subscription. Cancel anytime.
+            $37/month subscription. Cancel anytime.
           </p>
           
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 mt-6 text-sm md:text-base text-gray-500 font-medium">
@@ -410,7 +411,7 @@ export default function App() {
           
           <p>Without it, the engine might start… eventually. After a few tries. After a few weeks.</p>
           <p className="font-bold text-gray-900">With it, you turn the key and the engine roars to life.</p>
-          <p className="text-xl md:text-2xl font-bold text-gray-900 mt-10">$47 to make sure the engine starts on the first try.</p>
+          <p className="text-xl md:text-2xl font-bold text-gray-900 mt-10">$37 a month to make sure the engine starts on the first try.</p>
           <p>You'll know within the first week if it was worth it.</p>
           <p className="font-medium italic mt-6">I think you already know the answer.</p>
         </div>
@@ -436,7 +437,7 @@ export default function App() {
           </motion.button>
 
           <p className="mt-2.5 text-[11px] text-gray-400 text-center tracking-tight font-normal">
-            $47 initial fee, then $27/month subscription. Cancel anytime.
+            $37/month subscription. Cancel anytime.
           </p>
 
           <button 
