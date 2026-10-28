@@ -1,8 +1,17 @@
 import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 
-const UPSELL_LINK = 'https://checkout.kashpay.com.br/u/aa1b0ed2f8cf7970';
-const CHECKOUT_FALLBACK = 'https://checkout.kashpay.com.br/u/aa1b0ed2f8cf7970';
+// Cada funil da KashPay tem o seu token. A URL externa da etapa diz qual usar:
+// /s/<token>/ = checkout Stripe (checkout.kashpay.com), /w/<token>/ = checkout Whop (pay.neurodyneprotocol.com).
+// Sem caminho, fica o token do funil "Neurodyne Upsell 2026".
+const TOKEN_HOSTS: Record<string, string> = {
+  s: 'https://checkout.kashpay.com/u/',
+  w: 'https://pay.neurodyneprotocol.com/u/',
+};
+const tokenFromPath = window.location.pathname.match(/^\/([sw])\/([a-f0-9]{16})\/?$/);
+const UPSELL_LINK = tokenFromPath
+  ? TOKEN_HOSTS[tokenFromPath[1]] + tokenFromPath[2]
+  : 'https://checkout.kashpay.com.br/u/aa1b0ed2f8cf7970';
 const DECLINE_LINK = 'https://neuroprime-upsell.vercel.app';
 
 const handleAcceptUpsell = (e?: any) => {
