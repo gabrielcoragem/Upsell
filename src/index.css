@@ -24,3 +24,23 @@ html, body, #root {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important;
 }
+
+.discount-dialog { position: fixed; inset: 0; margin: auto; border: 0; border-radius: 16px; padding: 40px 32px 28px; width: min(500px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; background: #fff; color: #1f2937; text-align: center; box-shadow: 0 24px 80px rgb(0 0 0 / .25); }
+.discount-dialog::backdrop { background: rgb(15 23 42 / .72); }
+.discount-dialog h2 { font-size: clamp(26px, 5vw, 34px); line-height: 1.2; font-weight: 800; letter-spacing: -.025em; margin: 0 0 18px; }
+.discount-dialog p { font-size: 16px; line-height: 1.6; }
+.discount-close { position: absolute; inset-block-start: 6px; inset-inline-end: 6px; display: grid; place-items: center; width: 44px; height: 44px; color: #536172; background: transparent; cursor: pointer; }
+.discount-price { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 12px; margin: 22px 0 4px; }
+.discount-price s { font-size: 25px; color: #64748b; }
+.discount-price strong { font-size: 72px; line-height: 1.1; color: #057932; font-weight: 800; letter-spacing: -.03em; }
+.discount-price span { flex-basis: 100%; color: #057932; font-weight: 600; }
+.discount-dialog .discount-payment { font-size: 14px; margin: 10px 0 22px; }
+.discount-accept { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; width: 100%; min-height: 52px; border-radius: 10px; background: #057932; color: white; font-size: 17px; font-weight: 700; cursor: pointer; }
+.discount-accept:hover { background: #046129; }
+.discount-decline { display: block; background: transparent; color: #475569; text-decoration: underline; text-underline-offset: 4px; width: 100%; padding: 16px 4px; min-height: 48px; font-size: 14px; cursor: pointer; }
+.discount-decline:hover { color: #111827; }
+.discount-dialog .discount-fine { font-size: 12px; line-height: 1.5; color: #64748b; }
+.discount-dialog button:focus-visible { outline: 3px solid #0369a1; outline-offset: 3px; }
+.discount-error, .checkout-error { color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px; }
+.checkout-error { position: fixed; bottom: 16px; inset-inline: 16px; z-index: 1000; max-width: 640px; margin: auto; }
+@media (max-width: 480px) { .discount-dialog { padding: 40px 20px 24px; } }

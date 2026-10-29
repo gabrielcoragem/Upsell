@@ -1,44 +1,61 @@
-import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { CheckCircle2, Sparkles, ShieldCheck, Check, Lock, ArrowRight, X } from "lucide-react";
 import { motion } from "motion/react";
 
-// Cada funil da KashPay tem o seu token. A URL externa da etapa diz qual usar:
-// /s/<token>/ = checkout Stripe (checkout.kashpay.com), /w/<token>/ = checkout Whop (pay.neurodyneprotocol.com).
-// Sem caminho, fica o token do funil "Neurodyne Upsell 2026".
-const TOKEN_HOSTS: Record<string, string> = {
-  s: 'https://checkout.kashpay.com/u/',
-  w: 'https://pay.neurodyneprotocol.com/u/',
-};
-const tokenFromPath = window.location.pathname.match(/^\/([sw])\/([a-f0-9]{16})\/?$/);
-const UPSELL_LINK = tokenFromPath
-  ? TOKEN_HOSTS[tokenFromPath[1]] + tokenFromPath[2]
-  : 'https://checkout.kashpay.com.br/u/aa1b0ed2f8cf7970';
+type Funnel = { origin: string; link: string; discount: boolean; valid: boolean };
 const DECLINE_LINK = 'https://neuroprime-upsell.vercel.app';
 
-const handleAcceptUpsell = (e?: any) => {
-  if (e && e.preventDefault) e.preventDefault();
-  const fn = (window as any).acceptUpsell;
-  if (typeof fn === 'function') { fn(UPSELL_LINK); return; }
-  window.location.href = UPSELL_LINK;
-};
-
-const handleDeclineUpsell = (e?: any) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const ks = urlParams.get('ks');
-  const fn = (window as any).declineUpsell;
-
-  if (typeof fn === 'function' && ks) {
-    if (e && e.preventDefault) e.preventDefault();
-    fn(UPSELL_LINK);
-    return;
-  }
-  window.location.href = DECLINE_LINK;
-};
-
-
 export default function App() {
+  const funnel: Funnel = (window as any).neurodyneFunnel || { origin: '', link: '', discount: false, valid: false };
+  const dialog = useRef<HTMLDialogElement>(null);
+  const flight = useRef(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    if (funnel.discount) dialog.current?.showModal();
+  }, []);
+
+  const processOffer = (action: 'accept' | 'decline', e?: { preventDefault: () => void }) => {
+    e?.preventDefault();
+    if (flight.current) return;
+    const ks = new URLSearchParams(window.location.search).get('ks');
+    if (!ks) {
+      if (action === 'decline') { window.location.href = DECLINE_LINK; return; }
+      setError('We could not find your purchase session. Please return using the link from your checkout, or email promotie.br@gmail.com.');
+      return;
+    }
+    const fn = (window as any)[action === 'accept' ? 'acceptUpsell' : 'declineUpsell'];
+    if (!funnel.valid || typeof fn !== 'function') {
+      setError('The secure checkout is still loading. Please try again in a moment.');
+      return;
+    }
+    flight.current = true;
+    setError('');
+    // Leave the native dialog's top layer before the official processor opens its payment UI.
+    dialog.current?.close();
+    try { fn(funnel.link); }
+    catch { setError('The checkout could not open. Please try again.'); if (funnel.discount) dialog.current?.showModal(); }
+    window.setTimeout(() => { flight.current = false; }, 2500);
+  };
+  const handleAcceptUpsell = (e?: any) => processOffer('accept', e);
+  const handleDeclineUpsell = (e?: any) => processOffer('decline', e);
   return (
     <div className="min-h-screen bg-[#fafafa] font-sans selection:bg-emerald-200 selection:text-emerald-900 pb-16 tracking-[0.015em] overflow-x-hidden">
       
+      {funnel.discount && (
+        <dialog ref={dialog} className="discount-dialog" aria-labelledby="discount-title" aria-describedby="discount-description" onCancel={(e) => { e.preventDefault(); handleDeclineUpsell(); }}>
+          <button type="button" className="discount-close" aria-label="Skip this offer" onClick={handleDeclineUpsell}><X size={22} /></button>
+          <h2 id="discount-title">Before you go,<br />here’s a better price.</h2>
+          <p id="discount-description">Add the same Neurodyne Accelerator to your order for an exclusive price. All the content. One simple payment.</p>
+          <div className="discount-price"><s>$97</s><strong>$37</strong><span>You save $60</span></div>
+          <p className="discount-payment">One-time payment. No subscription.</p>
+          {error && <p role="alert" className="discount-error">{error}</p>}
+          <button type="button" className="discount-accept" onClick={handleAcceptUpsell}>Yes! Add the Accelerator for $37 <ArrowRight size={20} /></button>
+          <button type="button" className="discount-decline" onClick={handleDeclineUpsell}>No thanks, continue without the Accelerator</button>
+          <p className="discount-fine">Choosing “No thanks” will close this offer and take you to the next step. Your original order stays confirmed.</p>
+        </dialog>
+      )}
+      {!funnel.discount && error && <div role="alert" className="checkout-error">{error}</div>}
+
       {/* Top Success Banner */}
       <div className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 py-5 px-4 shadow-md">
         <div className="max-w-3xl mx-auto text-center">
