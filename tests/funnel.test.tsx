@@ -69,5 +69,32 @@ test('buttons use their own stage; mounting never buys; missing session never bu
   assert.equal(calls.length, 0);
   assert.match(document.querySelector('[role="alert"]')!.textContent!, /purchase session/);
   await act(async () => { root.unmount(); });
+
+  // Regression: all three No links must reveal the dialog on direct visits,
+  // including the bare domain. They must not navigate or call a payment SDK.
+  for (const [path, origin, token, discount] of routes.filter(r => !r[3])) {
+    for (let index = 0; index < 3; index++) {
+      w.history.replaceState(null, '', path);
+      calls.length = 0;
+      w.neurodyneFunnel = { origin, link: origin + '/u/' + token, discount, valid: true };
+      const host = document.createElement('div'); document.body.append(host);
+      const previewRoot = createRoot(host);
+      await act(async () => { previewRoot.render(<App />); });
+      assert.equal(host.querySelector('dialog'), null);
+      const no = host.querySelectorAll('main a')[index];
+      assert.ok(no);
+      await act(async () => { no.dispatchEvent(new w.MouseEvent('click', { bubbles: true, cancelable: true })); });
+      assert.equal((host.querySelector('dialog') as HTMLDialogElement).open, true, `${path}, No button ${index}`);
+      assert.equal(w.location.pathname, path);
+      assert.equal(calls.length, 0);
+      assert.match(host.querySelector('.discount-price')!.textContent!, /\$37/);
+      // Even if a script adds ks later, this preview must never buy the $97 token.
+      w.history.replaceState(null, '', path + '?ks=late-session');
+      await act(async () => { host.querySelector('.discount-accept')!.dispatchEvent(new w.MouseEvent('click', { bubbles: true })); });
+      assert.equal(calls.length, 0);
+      assert.match(host.querySelector('[role="alert"]')!.textContent!, /purchase session/);
+      await act(async () => { previewRoot.unmount(); }); host.remove();
+    }
+  }
   dom.window.close();
 });

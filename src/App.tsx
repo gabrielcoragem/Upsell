@@ -10,13 +10,20 @@ export default function App() {
   const dialog = useRef<HTMLDialogElement>(null);
   const flight = useRef(false);
   const [error, setError] = useState('');
+  const [previewDiscount, setPreviewDiscount] = useState(false);
+  const showingDiscount = funnel.discount || previewDiscount;
   useEffect(() => {
-    if (funnel.discount) dialog.current?.showModal();
-  }, []);
+    if (showingDiscount) dialog.current?.showModal();
+  }, [showingDiscount]);
 
   const processOffer = (action: 'accept' | 'decline', e?: { preventDefault: () => void }) => {
     e?.preventDefault();
     if (flight.current) return;
+    if (action === 'accept' && previewDiscount) {
+      // The preview is still on the $97 step: never pass that token to a $37 CTA.
+      setError('We could not find your purchase session. Please return using the link from your checkout, or email promotie.br@gmail.com.');
+      return;
+    }
     const ks = new URLSearchParams(window.location.search).get('ks');
     if (!ks) {
       if (action === 'decline') { window.location.href = DECLINE_LINK; return; }
@@ -33,15 +40,26 @@ export default function App() {
     // Leave the native dialog's top layer before the official processor opens its payment UI.
     dialog.current?.close();
     try { fn(funnel.link); }
-    catch { setError('The checkout could not open. Please try again.'); if (funnel.discount) dialog.current?.showModal(); }
+    catch { setError('The checkout could not open. Please try again.'); if (showingDiscount) dialog.current?.showModal(); }
     window.setTimeout(() => { flight.current = false; }, 2500);
   };
   const handleAcceptUpsell = (e?: any) => processOffer('accept', e);
-  const handleDeclineUpsell = (e?: any) => processOffer('decline', e);
+  const handleDeclineUpsell = (e?: any) => {
+    e?.preventDefault();
+    const hasSession = Boolean(new URLSearchParams(window.location.search).get('ks'));
+    // A direct visit must still show the offer. Only payment needs a purchase session.
+    // Paid sessions keep the official KashPay transition to their own $37 step.
+    if (!hasSession && !showingDiscount) {
+      setError('');
+      setPreviewDiscount(true);
+      return;
+    }
+    processOffer('decline', e);
+  };
   return (
     <div className="min-h-screen bg-[#fafafa] font-sans selection:bg-emerald-200 selection:text-emerald-900 pb-16 tracking-[0.015em] overflow-x-hidden">
       
-      {funnel.discount && (
+      {showingDiscount && (
         <dialog ref={dialog} className="discount-dialog" aria-labelledby="discount-title" aria-describedby="discount-description" onCancel={(e) => { e.preventDefault(); handleDeclineUpsell(); }}>
           <button type="button" className="discount-close" aria-label="Skip this offer" onClick={handleDeclineUpsell}><X size={22} /></button>
           <h2 id="discount-title">Before you go,<br />here’s a better price.</h2>
@@ -54,7 +72,7 @@ export default function App() {
           <p className="discount-fine">Choosing “No thanks” will close this offer and take you to the next step. Your original order stays confirmed.</p>
         </dialog>
       )}
-      {!funnel.discount && error && <div role="alert" className="checkout-error">{error}</div>}
+      {!showingDiscount && error && <div role="alert" className="checkout-error">{error}</div>}
 
       {/* Top Success Banner */}
       <div className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 py-5 px-4 shadow-md">
