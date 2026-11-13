@@ -1,5 +1,9 @@
 (function () {
-  var match = location.pathname.match(/^\/([sw])\/([a-f0-9]{16})(\/discount)?\/?$/);
+  var path = location.pathname;
+  if (location.hostname === 'onetimeoffer.neurodyneprotocol.com' && path === '/') {
+    path = '/w/01941d1656d6904e/';
+  }
+  var match = path.match(/^\/([sw])\/([a-f0-9]{16})(\/discount)?\/?$/);
   var discounts = {
     's/4c5277c05d2c7ac9': '7d8723d4260f4cc9',
     'w/01941d1656d6904e': 'cf7832638df3668c'
@@ -19,3 +23,4 @@
   script.async = true;
   document.head.appendChild(script);
 })();
+
