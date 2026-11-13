@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client';
 
 const routing = readFileSync(new URL('../public/funnel-routes.js', import.meta.url), 'utf8');
 const routes = [
-  ['/', 'https://checkout.kashpay.com.br', 'aa1b0ed2f8cf7970', false],
+  ['/', 'https://pay.neurodyneprotocol.com', '01941d1656d6904e', false],
   ['/s/4c5277c05d2c7ac9/', 'https://checkout.kashpay.com', '4c5277c05d2c7ac9', false],
   ['/w/01941d1656d6904e/', 'https://pay.neurodyneprotocol.com', '01941d1656d6904e', false],
   ['/s/4c5277c05d2c7ac9/discount/', 'https://checkout.kashpay.com', '7d8723d4260f4cc9', true],
@@ -17,7 +17,7 @@ const routes = [
 
 for (const [path, origin, token, discount] of routes) {
   test(`correct script and exact step token: ${path}`, () => {
-    const dom = new JSDOM('<html><head></head><body></body></html>', { url: 'https://onetimeoffer.neurodyneprotocol.com' + path });
+    const dom = new JSDOM('<html><head></head><body></body></html>', { url: 'https://onetimeoffer.neurodyneprotocol.com' + path + (path === '/' ? '?ks=test-session' : '') });
     vm.runInNewContext(routing, { window: dom.window, location: dom.window.location, document: dom.window.document });
     assert.equal((dom.window as any).neurodyneFunnel.link, origin + '/u/' + token);
     assert.equal((dom.window as any).neurodyneFunnel.discount, discount);
@@ -26,6 +26,13 @@ for (const [path, origin, token, discount] of routes) {
     dom.window.close();
   });
 }
+
+test('other hostnames keep the original home route', () => {
+  const dom = new JSDOM('<html><head></head><body></body></html>', { url: 'https://example.com/' });
+  vm.runInNewContext(routing, { window: dom.window, location: dom.window.location, document: dom.window.document });
+  assert.equal((dom.window as any).neurodyneFunnel.link, 'https://checkout.kashpay.com.br/u/aa1b0ed2f8cf7970');
+  dom.window.close();
+});
 
 test('an unconfigured discount never falls back to a full-price step', () => {
   const dom = new JSDOM('<html><head></head><body></body></html>', { url: 'https://example.com/s/0000000000000000/discount/' });
